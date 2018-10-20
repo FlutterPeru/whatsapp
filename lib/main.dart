@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/chat_list_widget.dart';
+import 'package:whatsapp/login_screen.dart';
 import 'package:whatsapp/placeholder_widget.dart';
 
 void main() => runApp(new MyApp());
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primaryColor: Color(0xFF075E54),
       ),
-      home: new MyHomePage(),
+      home: new LoginScreen(),
+
     );
   }
 }
