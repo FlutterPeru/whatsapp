@@ -1,12 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/User.dart';
 import 'package:whatsapp/chat_item.dart';
 import 'package:whatsapp/chat_item_widget.dart';
 
 class ChatListWidget extends StatelessWidget {
+  FirebaseUser user;
+
+  ChatListWidget({this.user}):assert(user!=null);
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("messages").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (snapshot.hasError){
+            return Text("Algo falló Y_Y");
+          }
+          
+
+        });
+
+    /*return ListView.builder(
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
@@ -15,7 +31,7 @@ class ChatListWidget extends StatelessWidget {
               Divider(height: 10.0),
             ],
           );
-        });
+        });*/
   }
 }
 

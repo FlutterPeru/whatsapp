@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/chat_list_widget.dart';
 import 'package:whatsapp/login_screen.dart';
@@ -21,6 +22,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+
+  FirebaseUser user;
+
+  MyHomePage({this.user}):assert(user!=null);
+
   @override
   MyHomePageState createState() {
     return new MyHomePageState();
@@ -53,7 +59,7 @@ class MyHomePageState extends State<MyHomePage>
         controller: _tabController,
         children: [
           PlaceHolderWidget(),
-          ChatListWidget(),
+          ChatListWidget(user:widget.user),
           PlaceHolderWidget(),
           PlaceHolderWidget(),
         ],
