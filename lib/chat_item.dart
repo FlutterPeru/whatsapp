@@ -16,6 +16,17 @@ class ChatItem {
   }) : unreadCount = unreadCount ?? 0;
 
   bool get unread => unreadCount > 0;
+
+  factory ChatItem.fromJson(Map<String, dynamic> json) {
+    User user = User(name: json["username"], avatarUrl: json["avatarUrl"]);
+    return ChatItem(
+      user: user,
+      message: json["message"],
+      date: json["date"],
+      unreadCount: json["unreadCount"] ,
+    );
+
+  }
 }
 
 enum ChatStatus { SENDING, SENT, RECEIVED, CHECKED, VISTO }

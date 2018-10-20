@@ -8,18 +8,35 @@ import 'package:whatsapp/chat_item_widget.dart';
 class ChatListWidget extends StatelessWidget {
   FirebaseUser user;
 
-  ChatListWidget({this.user}):assert(user!=null);
+  ChatListWidget({this.user}) : assert(user != null);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance.collection("messages").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if (snapshot.hasError){
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
             return Text("Algo falló Y_Y");
           }
-          
-
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return CircularProgressIndicator();
+              break;
+            default:
+              return ListView.builder(
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: <Widget>[
+                        ChatItemWidget(
+                          chatItem: ChatItem.fromJson(
+                              snapshot.data.documents[index].data),
+                        ),
+                        Divider(height: 10.0),
+                      ],
+                    );
+                  });
+          }
         });
 
     /*return ListView.builder(

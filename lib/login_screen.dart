@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       accessToken: auth.accessToken,
     );
     if (fUser != null) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => MaterialApp(home: MyHomePage(user:fUser))));
